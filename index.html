@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <script src="fontselect.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/vs2015.min.css">
+        <style>
+            html {
+                background-color: #1E1E1E;
+                color: white;
+            }
+
+            select {
+                background-color: #4F4F4F;
+                border-color: #111111 #0A0A0A black;
+            }
+
+            select:before {
+                border-bottom-color: #AFAFAF;
+            }
+
+            select:after {
+                border-top-color: #AFAFAF;
+            }
+
+            select {
+                color: #AFAFAF;
+                text-shadow: 0 1px black;
+                background: #4F4F4F;
+                /* Fallback for IE 8 */
+            }
+
+            select:focus {
+                color: #CFCFCF;
+            }
+
+            select option {
+                background: #4F4F4F;
+            }
+        </style>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
+    </head>
+
+    <body>
+        <p id="text" style="font-family: 'Baloo Tamma 2';">
+            I'm the example text! Select a font in the dropdown to see me update in realtime!
+            <br />
+            All fonts are loaded in asynchronously using the CSS fonts api.
+            <br />
+            This text will eventually update to reflect the currently selected font. (~25s, there are a lot of fonts!)
+            <br />
+            The dropdown is populated before all fonts have loaded to allow for a better user experience.
+            <br />
+            <br />
+            Example Code:
+        </p>
+        <pre><code class="language-javascript">
+// Set to true to wait for font names to be loaded, false to wait for fonts to be downloaded.
+FONTSELECT.preload(false).then(() => {
+    // Logs all available fonts
+    console.log("Loaded fonts:");
+    console.log(FONTSELECT.fonts);
+});
+
+        </code></pre>
+        <br />
+        <select id="font"></select>
+    </body>
+
+    <footer>
+        <script>
+            const text = document.querySelector("#text");
+            const font = document.querySelector("#font");
+            const options = {
+                updateFont: true,
+                selected: "Baloo Tamma 2"
+            };
+
+            // Set example code highlight
+            hljs.initHighlightingOnLoad();
+
+            // Restricted to e3ndr.github.io, use your own.
+            FONTSELECT.endPoint = "https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=AIzaSyDEygsuy6mCQvvlWenCcjZs360gcA0-6m4";
+            FONTSELECT.apply(font, options);
+
+            // From example above
+            FONTSELECT.preload(true).then(() => {
+                // Logs all available fonts
+                console.log("Loaded fonts:");
+                console.log(FONTSELECT.fonts);
+            })
+
+            font.addEventListener("change", () => {
+                text.style = "font-family: '" + font.value + "';";
+            })
+        </script>
+    </footer>
+
+</html>
