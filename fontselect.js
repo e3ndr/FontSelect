@@ -1,5 +1,5 @@
 const FONTSELECT = {
-    version: "1.0.0",
+    version: "1.0.1",
     endPoint: "",
     fonts: [],
 
@@ -96,7 +96,7 @@ const FONTSELECT = {
 const FONTSELECTUTIL = {
     loadFont(name, url) {
         return new Promise((resolve) => {
-            const font = new FontFace(name, "url(" + url + ")");
+            const font = new FontFace(name, "url(" + url.replace("http:", "") + ")");
 
             document.fonts.add(font);
 
